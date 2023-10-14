@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        * {
+            background-color: rgb(80, 12, 12);
+        }
+
+        :root {
+            --grid-column: 3;
+            --grid-rows:3;
+            --colour: #fcfcfc;
+        }
+
+        .div-container {
+            width: 700px;
+            height: 700px;
+            display: grid;
+            grid-template-columns: repeat(var(--grid-column), 1fr);
+            grid-template-rows: repeat(var(--grid-rows), 1fr);
+
+        }
+
+        .grid {
+            border: 2px solid rgb(175, 175, 128);
+            background-color: var(--colour);
+        }
+        
+        .grid-color {
+            background-color: var(--colour);
+        }
+
+
+    </style>
+
+        <div class="sliderContainer">
+            <label id="label-grid" for="slidergrid">Grid Number: &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp</label>
+            <input name = 'grid-column' type="range" min="1" max="100" value="1" class="slider" id="slidergrid">
+        </div>
+        <div class="color">
+            <label for="color">Color</label>
+            <input id="color" type="color" value="">
+        </div>
+
+        <div class="div-container">
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+        </div>
+
+
+  
+
+    <script>
+        const gridNum = document.querySelector('#slidergrid');
+        const gridContainer = document.querySelector('.div-container');
+        const colorGrid = document.querySelector('#color');
+
+
+        function gridHandle() {
+            //update label sesuai dengan jumlah grid
+            const labelGrid = document.querySelector('#label-grid')
+            labelGrid.textContent =`Grid Number: ${this.value} x ${this.value}`;
+
+            // update css variabel sesuai dengan jumlah grid
+            document.documentElement.style.setProperty(`--${this.name}`, this.value);
+            document.documentElement.style.setProperty('--grid-rows', this.value);
+            console.log((this.value))
+            //remove initial grid
+            while (gridContainer.firstChild) {
+                gridContainer.removeChild(gridContainer.firstChild);
+            }
+
+            // make a div with the same number of the grid
+            for (let i = 0; i < (parseInt(this.value)** 2); i++) {
+
+                const divGrid = document.createElement('div');
+                //divGrid.textContent = i + 1;
+                divGrid.setAttribute('class', 'grid')
+                gridContainer.appendChild(divGrid);
+            };
+        };
+
+        function gridColor() {
+            console.log(this.value)
+            const allGrids = document.querySelectorAll('.grid');
+            allGrids.forEach(grid => grid.addEventListener('mouseover', () => {
+                console.log('asadf')
+                grid.style.cssText = `background-color: ${this.value}`;
+            }))
+        }
+
+        const gridNum2 = gridNum.addEventListener('change', gridHandle)
+        console.log(gridNum.value)
+        const gridColorHandle = colorGrid.addEventListener('change', gridColor)
+        
+    </script>
+</body>
+</html>
