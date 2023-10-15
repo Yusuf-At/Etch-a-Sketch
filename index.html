@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='style.css'/>
+    <script src="script.js" defer></script>
+    <title>Etch-a-Sketch</title>
+</head>
+<body>
+    <h1>Etch-a-Sketch</h1>
+    <div id="option-container">
+        <div class="sliderContainer highlight" >
+            <label id="label-grid" for="slidergrid">Grid Number: &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp</label>
+            <input name = 'grid-column' type="range" min="1" max="100" value="1" class="slider" id="slidergrid">
+        </div>
+        <div class="color highlight" >
+            <label for="color">Color</label>
+            <input id="color" type="color">
+        </div>
+        <div class="rainbow highlight">
+            <label for="button"></label>
+            <button id="button">Rainbow</button>
+        </div>
+        <div class="highlight">
+            <label for="eraser"></label>
+            <button id="eraser">Eraser</button>
+        </div>
+        <div class="highlight">
+            <label for="clear"></label>
+            <button id="clear">Clear</button>
+        </div>
+    </div>
+    <div class="div-container">
+        <div class="grid"></div>
+        <div class="grid"></div>
+        <div class="grid"></div>
+        <div class="grid"></div>
+        <div class="grid"></div>
+        <div class="grid"></div>
+    </div>
+</body>
+</html>
