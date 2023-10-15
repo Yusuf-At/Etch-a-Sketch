@@ -35,18 +35,39 @@
             background-color: var(--colour);
         }
 
+        #option-container {
+            width: 700px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 2px solid rgb(175, 175, 128);
+            
+        }
 
     </style>
-
-        <div class="sliderContainer">
-            <label id="label-grid" for="slidergrid">Grid Number: &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp</label>
-            <input name = 'grid-column' type="range" min="1" max="100" value="1" class="slider" id="slidergrid">
+        <h1>Etch-a-Sketch</h1>
+        <div id="option-container">
+            <div class="sliderContainer">
+                <label id="label-grid" for="slidergrid">Grid Number: &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp  &nbsp</label>
+                <input name = 'grid-column' type="range" min="1" max="100" value="1" class="slider" id="slidergrid">
+            </div>
+            <div class="color">
+                <label for="color">Color</label>
+                <input id="color" type="color">
+            </div>
+            <div class="rainbow">
+                <label for="button"></label>
+                <button id="button">Rainbow</button>
+            </div>
+            <div>
+                <label for="eraser"></label>
+                <button id="eraser">Eraser</button>
+            </div>
+            <div>
+                <label for="clear"></label>
+                <button id="clear">Clear</button>
+            </div>
         </div>
-        <div class="color">
-            <label for="color">Color</label>
-            <input id="color" type="color" value="">
-        </div>
-
         <div class="div-container">
             <div class="grid"></div>
             <div class="grid"></div>
@@ -55,17 +76,19 @@
             <div class="grid"></div>
             <div class="grid"></div>
         </div>
-
-
-  
+        
 
     <script>
         const gridNum = document.querySelector('#slidergrid');
         const gridContainer = document.querySelector('.div-container');
         const colorGrid = document.querySelector('#color');
+        const button = document.querySelector('#button');
+        const eraser = document.querySelector('#eraser');
+        const clearAll = document.querySelector('#clear');
 
 
         function gridHandle() {
+            console.log('change grid')
             //update label sesuai dengan jumlah grid
             const labelGrid = document.querySelector('#label-grid')
             labelGrid.textContent =`Grid Number: ${this.value} x ${this.value}`;
@@ -73,7 +96,7 @@
             // update css variabel sesuai dengan jumlah grid
             document.documentElement.style.setProperty(`--${this.name}`, this.value);
             document.documentElement.style.setProperty('--grid-rows', this.value);
-            console.log((this.value))
+            //console.log((this.value))
             //remove initial grid
             while (gridContainer.firstChild) {
                 gridContainer.removeChild(gridContainer.firstChild);
@@ -90,17 +113,46 @@
         };
 
         function gridColor() {
-            console.log(this.value)
             const allGrids = document.querySelectorAll('.grid');
             allGrids.forEach(grid => grid.addEventListener('mouseover', () => {
-                console.log('asadf')
+                console.log('change gridcolor')
                 grid.style.cssText = `background-color: ${this.value}`;
+            }))
+        };
+
+        function rainbowColor() {
+            const allGrids = document.querySelectorAll('.grid');
+            allGrids.forEach(gridRainbow => gridRainbow.addEventListener('mouseover', () => {
+                console.log('click rainbow')
+                const r = Math.floor(Math.random() * 255);
+                const g = Math.floor(Math.random() * 255);
+                const b = Math.floor(Math.random() * 255);
+                console.log(`background-color: rgb(${r}, ${g}, ${b})`)
+                gridRainbow.style.cssText = `background-color: rgb(${r}, ${g}, ${b})` 
             }))
         }
 
-        const gridNum2 = gridNum.addEventListener('change', gridHandle)
+        function eraseColor() {
+            const allGrids = document.querySelectorAll('.grid');
+            allGrids.forEach(grid => grid.addEventListener('mouseover', () => {
+                console.log('erase Color')
+                grid.style.cssText = 'background-color: #fcfcfc;'
+            }))
+        };
+
+        function clearGrid() {
+            const allGrids = document.querySelectorAll('.grid');
+            allGrids.forEach(grid => grid.removeAttribute('style'))
+            console.log('clear')                 
+        };
+
+        const gridNum2 = gridNum.addEventListener('change', gridHandle);
         console.log(gridNum.value)
-        const gridColorHandle = colorGrid.addEventListener('change', gridColor)
+        const gridColorHandle = colorGrid.addEventListener('click', gridColor);
+        const buttonHandle = button.addEventListener('click', rainbowColor);
+        const eraserHandle = eraser.addEventListener('click', eraseColor);
+        const clearHandle = clearAll.addEventListener('click', clearGrid);
+        
         
     </script>
 </body>
